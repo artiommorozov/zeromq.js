@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>zeromq.js</h1><p><a href="https://codecov.io/gh/zeromq/zeromq.js"><img src="https://codecov.io/gh/zeromq/zeromq.js/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/zeromq/zeromq.js.svg" alt="Greenkeeper badge"></a>
+<a href="https://github.com/zeromq/zeromq.js"><img src="https://img.shields.io/badge/version-latest-blue.svg" alt=""></a>
+<a href="https://travis-ci.org/zeromq/zeromq.js"><img src="https://travis-ci.org/zeromq/zeromq.js.svg?branch=master" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/zeromq/zeromq-js/branch/master"><img src="https://ci.appveyor.com/api/projects/status/6u7saauir2msxpou?svg=true" alt="Build status"></a>
+<a href="https://github.com/zeromq/zeromq.js/releases"><img src="https://img.shields.io/badge/version-stable-blue.svg" alt=""></a>
+<a href="https://travis-ci.org/zeromq/zeromq.js"><img src="https://travis-ci.org/zeromq/zeromq.js.svg?branch=prebuilt-testing" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/zeromq/zeromq-js/branch/prebuilt-testing"><img src="https://ci.appveyor.com/api/projects/status/w189dgubmg9darun/branch/master?svg=true" alt="Build status"></a></p>
+<p><a href="#installation---users"><strong>Users</strong></a> | <a href="#installation---from-source"><strong>From Source</strong></a> | <a href="#installation---contributors-and-development"><strong>Contributors and Development</strong></a> | <a href="#for-maintainers-creating-a-release"><strong>Maintainers</strong></a></p>
+<p><strong><code>zeromq</code></strong>: Your ready to use, prebuilt <a href="http://www.zeromq.org/">ØMQ</a>
+bindings for <a href="https://nodejs.org/en/">Node.js</a>.</p>
+<p>ØMQ provides handy functionality when working with sockets. Yet,
+installing dependencies on your operating system or building ØMQ from
+source can lead to developer frustration.</p>
+<p><strong>zeromq</strong> simplifies creating communications for a Node.js
+application by providing well-tested, ready to use ØMQ bindings.
+zeromq supports all major operating systems, including:</p>
+<ul>
+<li>OS X/Darwin (x64)</li>
+<li>Linux (x64, ARMv7 and ARMv8)</li>
+<li>Windows (x64 and x86)</li>
+</ul>
+<p>Use <strong>zeromq</strong> and take advantage of the <em>elegant simplicity of binaries</em>.</p>
+<h2>Installation - Users</h2><p>We rely on <a href="https://github.com/mafintosh/prebuild"><code>prebuild</code></a>.</p>
+<p>Install <code>zeromq</code> with the following:</p>
+<pre class="prettyprint source lang-bash"><code>npm install zeromq</code></pre><p>windows users:
+do not forget to set msvs_version according to your visual studio version 2013,2015,2017
+  <code>npm config set msvs_version 2015</code>
+Now, prepare to be amazed by the wonders of binaries.</p>
+<p>To use your system's libzmq (if it has been installed and development headers
+are available):</p>
+<pre class="prettyprint source lang-bash"><code>npm install zeromq --zmq-external</code></pre><h3>Rebuilding for Electron</h3><p>If you want to use <code>zeromq</code> inside your <a href="http://electron.atom.io/">Electron</a> application
+it needs to be rebuild against Electron headers. We ship prebuilt binaries for Electron so you won't need to build <code>zeromq</code> from source.</p>
+<p>You can rebuild <code>zeromq</code> manually by running:</p>
+<pre class="prettyprint source lang-bash"><code>npm rebuild zeromq --runtime=electron --target=1.4.5</code></pre><p>Where <code>target</code> is your desired Electron version. This will download the correct binary for usage in Electron.</p>
+<p>For packaging your Electron application we recommend using <a href="https://github.com/electron-userland/electron-builder"><code>electron-builder</code></a> which handles rebuilding automatically. Enable the <code>npmSkipBuildFromSource</code> option to make use of the prebuilt binaries. For a real world example take a look at <a href="https://github.com/nteract/nteract/blob/master/package.json">nteract</a>.</p>
+<h2>Installation - From Source</h2><p>If you are working on a Linux 32-bit system or want to install a development version, you have to build <code>zeromq</code> from source.</p>
+<h3>Prerequisites</h3><p><strong>Linux</strong></p>
+<ul>
+<li><code>python</code> (<code>v2.7</code> recommended, <code>v3.x.x</code> is not supported)</li>
+<li><code>make</code></li>
+<li>A proper C/C++ compiler toolchain, like <a href="https://gcc.gnu.org/">GCC</a></li>
+</ul>
+<p>Use your distribution's package manager to install.</p>
+<p><strong>macOS</strong></p>
+<ul>
+<li><code>python</code> (<code>v2.7</code> recommended, <code>v3.x.x</code> is not supported): already installed on Mac OS X</li>
+<li><code>Xcode Command Line Tools</code>: Can be installed with <code>xcode-select --install</code></li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul>
+<li><strong>Option 1:</strong> Install all the required tools and configurations using Microsoft's <a href="https://github.com/felixrieseberg/windows-build-tools">windows-build-tools</a> by running <code>npm install -g windows-build-tools</code> from an elevated PowerShell (run as Administrator).</li>
+<li><p><strong>Option 2:</strong> Install dependencies and configuration manually</p>
+<ol>
+<li>Visual C++ Build Environment:<ul>
+<li><strong>Option 1:</strong> Install <a href="http://go.microsoft.com/fwlink/?LinkId=691126">Visual C++ Build Tools</a> using the <em>Default Install</em> option.</li>
+<li><strong>Option 2:</strong> Install <a href="https://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio 2015</a> (or modify an existing installation) and select <em>Common Tools for Visual C++</em> during setup.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>:bulb: [Windows Vista / 7 only] requires <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40773">.NET Framework 4.5.1</a></p>
+</blockquote>
+<ol start="2">
+<li>Install <a href="https://www.python.org/downloads/">Python 2.7</a> or <a href="http://conda.pydata.org/miniconda.html">Miniconda 2.7</a> (<code>v3.x.x</code> is not supported), and run <code>npm config set python python2.7</code></li>
+<li>Launch cmd, and set msvs_version according to your visual studio version 2013,2015,2017
+<code>npm config set msvs_version 2015</code></li>
+</ol>
+</li>
+</ul>
+<h3>Installation</h3><p>Now you can install <code>zeromq</code> with the following:</p>
+<pre class="prettyprint source lang-bash"><code>npm install zeromq</code></pre><h2>Installation - Contributors and Development</h2><p>To set up <code>zeromq</code> for development, fork this repository and
+clone your fork to your system.</p>
+<p>Make sure you have the required <a href="#installation---from-source">dependencies for building <code>zeromq</code> from source</a> installed.</p>
+<p>Install a development version of <code>zeromq</code> with the following:</p>
+<pre class="prettyprint source lang-bash"><code>npm install</code></pre><h2>Testing</h2><p>Run the test suite using:</p>
+<pre class="prettyprint source lang-bash"><code>npm test</code></pre><h2>Running an example application</h2><p>Several example applications are found in the <code>examples</code> directory. Use
+<code>node</code> to run an example. To run the 'subber' application, enter the
+following:</p>
+<pre class="prettyprint source lang-bash"><code>node examples/subber.js</code></pre><h2>Examples using zeromq</h2><h3>Push/Pull</h3><p>This example demonstrates how a producer pushes information onto a
+socket and how a worker pulls information from the socket.</p>
+<p><strong>producer.js</strong></p>
+<pre class="prettyprint source lang-js"><code>// producer.js
+var zmq = require('zeromq')
+  , sock = zmq.socket('push');
+
+sock.bindSync('tcp://127.0.0.1:3000');
+console.log('Producer bound to port 3000');
+
+setInterval(function(){
+  console.log('sending work');
+  sock.send('some work');
+}, 500);</code></pre><p><strong>worker.js</strong></p>
+<pre class="prettyprint source lang-js"><code>// worker.js
+var zmq = require('zeromq')
+  , sock = zmq.socket('pull');
+
+sock.connect('tcp://127.0.0.1:3000');
+console.log('Worker connected to port 3000');
+
+sock.on('message', function(msg){
+  console.log('work: %s', msg.toString());
+});</code></pre><h3>Pub/Sub</h3><p>This example demonstrates using <code>zeromq</code> in a classic Pub/Sub,
+Publisher/Subscriber, application.</p>
+<p><strong>Publisher: pubber.js</strong></p>
+<pre class="prettyprint source lang-js"><code>// pubber.js
+var zmq = require('zeromq')
+  , sock = zmq.socket('pub');
+
+sock.bindSync('tcp://127.0.0.1:3000');
+console.log('Publisher bound to port 3000');
+
+setInterval(function(){
+  console.log('sending a multipart message envelope');
+  sock.send(['kitty cats', 'meow!']);
+}, 500);</code></pre><p><strong>Subscriber: subber.js</strong></p>
+<pre class="prettyprint source lang-js"><code>// subber.js
+var zmq = require('zeromq')
+  , sock = zmq.socket('sub');
+
+sock.connect('tcp://127.0.0.1:3000');
+sock.subscribe('kitty cats');
+console.log('Subscriber connected to port 3000');
+
+sock.on('message', function(topic, message) {
+  console.log('received a message related to:', topic, 'containing message:', message);
+});</code></pre><h2>For maintainers: Creating a release</h2><p>When making a release, do the following:</p>
+<pre class="prettyprint source lang-bash"><code>npm version minor && git push && git push --tags</code></pre><p>Then, wait for the prebuilds to get uploaded for each OS. After the
+prebuilds are uploaded, run the following to publish the release:</p>
+<pre class="prettyprint source lang-bash"><code>npm publish</code></pre><h2>Background</h2><p>This codebase largely came from the npm module <code>zmq</code> and was, at one point, named <code>nteract/zmq-prebuilt</code>. It started as a community run fork of <code>zmq</code> that fixed up the build process and automated prebuilt binaries. In the process of setting up a way to do statically compiled binaries of zeromq for node, <code>zmq-static</code> was created. Eventually <code>zmq-prebuilt</code> was able to do the job of <code>zmq-static</code> and it was deprecated. Once <code>zmq-prebuilt</code> was shipping for a while, allowed building from source,  and suggesting people use it for electron + node.js, the repository moved to the zeromq org and it became official.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Socket.html">Socket</a></li></ul><h3>Global</h3><ul><li><a href="global.html"></a></li><li><a href="global.html#curveKeypair">curveKeypair</a></li><li><a href="global.html#EventEmitter">EventEmitter</a></li><li><a href="global.html#events">events</a></li><li><a href="global.html#opts">opts</a></li><li><a href="global.html#OutBatch">OutBatch</a></li><li><a href="global.html#proxy">proxy</a></li><li><a href="global.html#socket">socket</a></li><li><a href="global.html#types">types</a></li><li><a href="global.html#version">version</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Aug 19 2018 12:29:22 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
