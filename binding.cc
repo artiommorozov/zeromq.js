@@ -1499,7 +1499,7 @@ namespace zmq {
     opts_int.insert(76); //ZMQ_HEARTBEAT_TTL
     opts_int.insert(77); //ZMQ_HEARTBEAT_TIMEOUT
     opts_int.insert(79); //ZMQ_CONNECT_TIMEOUT
-    opts_binary.insert(94); // ZMQ_LOOPBACK_FASTPATH
+    opts_int.insert(94); // ZMQ_LOOPBACK_FASTPATH
     #endif
     #endif
 
