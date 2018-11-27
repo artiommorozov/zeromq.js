@@ -1,5 +1,5 @@
 var download = require("./download").download;
-var spawn = require("child_process").spawn;
+var child_process = require("child_process");
 var path = require("path");
 var fs = require("fs");
 
@@ -12,16 +12,27 @@ if (process.env.npm_config_zmq_external == "true") {
   process.exit(0);
 }
 
-function buildZMQ(scriptPath, zmqDir) {
+function buildZMQ(scriptPathSrc, zmqDir) {
   console.log("Building libzmq for " + process.platform);
 
-  var child = spawn(scriptPath, [ZMQ, ARCH]);
+  var scriptPath = scriptPathSrc;
+
+  var child;
+
+  if (process.platform === "win32") {
+    scriptPath = scriptPath.replace(/sh$/, 'cmd');
+    child = child_process.spawn('cmd.exe', ['/c', scriptPath, ZMQ, ARCH]);
+
+  } else {
+    child = child_process.spawn(scriptPath, [ZMQ, ARCH]);
+  }
 
   child.stdout.pipe(process.stdout);
   child.stderr.pipe(process.stderr);
   child.on("error", function(err) {
     console.error("Failed to start child process.");
   });
+
   child.on("close", function(code) {
     if (code !== 0) {
       return console.error("child process exited with code " + code);
@@ -50,30 +61,7 @@ function handleError(err) {
   process.exit(1);
 }
 
-if (process.platform === "win32") {
-  var LIB_URL =
-    "https://github.com/nteract/libzmq-win/releases/download/v2.1.0/libzmq-" +
-    ZMQ +
-    "-" +
-    process.arch +
-    ".lib";
-  var DIR_NAME = path.join(__dirname, "..", "windows", "lib");
-  var FILE_NAME = path.join(DIR_NAME, "libzmq.lib");
-
-  if (!fs.existsSync(DIR_NAME)) {
-    fs.mkdirSync(DIR_NAME);
-  }
-
-  if (!fs.existsSync(FILE_NAME)) {
-    console.log("Downloading libzmq for Windows");
-    download(LIB_URL, FILE_NAME, function(err) {
-      if (err) {
-        handleError(err);
-      }
-      console.log("Download finished");
-    });
-  }
-} else {
+function downloadAndBuild() {
   var SCRIPT_PATH = path.join(__dirname, "build_libzmq.sh");
   var TAR_URL =
     "https://github.com/zeromq/" +
@@ -97,7 +85,7 @@ if (process.platform === "win32") {
 
   if (fs.existsSync(FILE_NAME)) {
     buildZMQ(SCRIPT_PATH, DIR_NAME);
-    process.exit(0);
+    return;
   }
 
   download(TAR_URL, FILE_NAME, function(err) {
@@ -107,3 +95,5 @@ if (process.platform === "win32") {
     buildZMQ(SCRIPT_PATH, DIR_NAME);
   });
 }
+
+downloadAndBuild();
