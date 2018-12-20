@@ -17,8 +17,6 @@
         }, {
           'conditions': [
             ['OS=="win"', {
-				'configurations': { 'Release': { 'msvs_settings': { 'VCCLCompilerTool': { 'RuntimeLibrary': '2' } } } },
-				
               'msbuild_toolset': 'v140',
               'defines': ['ZMQ_STATIC'],
               'include_dirs': ['windows/include'],
