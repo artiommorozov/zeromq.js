@@ -1,3 +1,5 @@
+setlocal enabledelayedexpansion enableextensions
+
 set
 set ZMQ=%~1
 set ARCH=%~2
@@ -27,6 +29,13 @@ cd "%BUILDDIR%"
 @rem missing as of 4.2.5
 type 2>nul >>  ..\builds\cmake\clang-format-check.sh.in
 
+pushd ..
+call :get_exe_path GIT_PATH git.exe
+set "PATCH=%GIT_PATH%\..\usr\bin\patch.exe"
+"%PATCH%" -v || echo Patch.exe not found && exit /b 3
+"%PATCH%" -p1 < %BASE%\CMakeLists.patch || exit /b 3
+popd
+
 cmake -DBUILD_TESTS=OFF -DBUILD_SHARED=OFF -Wno-dev -A %ARCH% ..
 cmake --build . --config Release
 
@@ -37,3 +46,15 @@ FOR /F %%i IN ('dir /b lib\Release\libzmq*-s-*.lib') DO copy lib\Release\%%i "%W
 popd
 rd /s /q "%ZMQ_SRC_DIR%"
 del "zeromq-%ZMQ%.tar.gz"
+
+goto :eof
+
+:get_exe_path <a> <b>
+(
+	set "%~1=%~dp$PATH:2"
+	exit /b
+)
+
+:eof
+
+endlocal 
