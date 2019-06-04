@@ -31,7 +31,13 @@ type 2>nul >>  ..\builds\cmake\clang-format-check.sh.in
 
 pushd ..
 call :get_exe_path GIT_PATH git.exe
-set "PATCH=%GIT_PATH%\..\usr\bin\patch.exe"
+
+set pathOld=%PATH%
+set "PATH=%GIT_PATH%\..\usr\bin;%GIT_PATH%\..\..\usr\bin"
+call :get_exe_path PATCH_PATH patch.exe 
+set "PATH=%pathOld%"
+set "PATCH=%PATCH_PATH%\patch.exe"
+
 "%PATCH%" -v || echo Patch.exe not found && exit /b 3
 "%PATCH%" -p1 < %BASE%\CMakeLists.patch || exit /b 3
 popd
