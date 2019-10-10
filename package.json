@@ -25,8 +25,8 @@
     "node": ">=6.0"
   },
   "scripts": {
-    "build:libzmq": "node scripts/preinstall.js",
-    "install": "node scripts/preinstall.js && node-gyp rebuild",
+    "build:libzmq": "cross-env ZMQ_BUILD_OPTIONS=--disable-curve node scripts/preinstall.js",
+    "install": "cross-env ZMQ_BUILD_OPTIONS=--disable-curve node scripts/preinstall.js && node-gyp rebuild",
     "prebuild": "prebuild --all --strip",
     "build:docs": "jsdoc -R README.md -d docs lib/*.js",
     "test": "mocha --expose-gc --slow 300",
